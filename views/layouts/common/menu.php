@@ -1,0 +1,1 @@
+<a href="<?= BASE_URL . 'Dashboard/dashboard'; ?>">Inicio</a>
