@@ -1,5 +1,5 @@
 <?php
-define ("APPNAME","SIG_dev");
+define ("APPNAME","SIG");
 define ("APP_PORT","80");
 define ("DEFAULT_CONTROLLER","DashboardController");
 define ("ACTION_DEFAULT","dashboard");
