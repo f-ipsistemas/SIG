@@ -63,7 +63,7 @@
                         switch (fila.status) {
                             case "created":
                                 alert("Registro Creado");
-                                redirect('<?= BASE_URL ?>Dashboard/infoTipoDocumento', fila.id);
+                                redirect('<?= BASE_URL ?>Dashboard/gestionTipoDocumento', fila.id);
                                 break;
 
                             case "error":
