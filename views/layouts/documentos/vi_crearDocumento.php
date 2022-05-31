@@ -140,7 +140,7 @@
                         }
                     });
                     alert("Registro Creado");
-                    redirect('<?= BASE_URL ?>Dashboard/infoDocumento', idDocumento);
+                    redirect('<?= BASE_URL ?>Dashboard/gestionDocumentos', idDocumento);
                 },
                 complete: function(data) {
                     dvRespuesta.html('');

@@ -45,7 +45,8 @@
                                 <th>Area</th>
                                 <th>Categoria</th>
                                 <th>Tipo Doc</th>
-                                <th>Descripcion</th>
+                                <th>Estado</th>
+                                <th>Descripción</th>
                             </tr>
                         </thead>
                         <tbody></tbody>
@@ -56,7 +57,8 @@
                                 <th>Area</th>
                                 <th>Categoria</th>
                                 <th>Tipo Doc</th>
-                                <th>Descripcion</th>
+                                <th>Estado</th>
+                                <th>Descripción</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -74,7 +76,7 @@
     $(document).ready(function() {
         $('#id_area').change(function() {
             let id_area = $('#id_area').val();
-            listAsync('listarDocumentosXArea', id_area);
+            listAsync('listarDocumentosFullXArea', id_area);
         });        
     });
 
@@ -94,9 +96,9 @@
                     dvRespuesta.html('<div class="spinner-border text-success"></div>');
                 },
                 success: function(response) {
-                    $("#tblDatos>tbody").empty();
-                    const tupla = JSON.parse(response);
+                    $("#tblDatos>tbody").empty();                    
                     //console.log(response)
+                    const tupla = JSON.parse(response);                    
                     $.each(tupla, function(id, row) {
                         if (!row.status) {
                             let area = getName('<?= BASE_SERVER ?>ws/Area/getOne&id=' + row.id_area);
@@ -111,11 +113,12 @@
                             fila += '<td>' + area + '</td>';
                             fila += '<td>' + categoria + '</td>';
                             fila += '<td>' + tipo_documento + '</td>';
+                            fila += '<td>' + row.estado + '</td>';
                             fila += '<td><div class="row"><button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapse' + row.id + '" aria-expanded="false" aria-controls="collapseExample">Ver <i class="bi bi-eye"></i></button><div class="collapse" id="collapse' + row.id + '"><div class="card card-body overflow-auto">' + row.descripcion + '</div></div></div></td>';                            
                             fila += '</tr>';
                             $('#tblDatos>tbody').append(fila);
                         } else {
-                            console.log(row.status);
+                            console.log("Status:" + row.status + ", Description: " + row.description);
                         }
                     });
                 },
