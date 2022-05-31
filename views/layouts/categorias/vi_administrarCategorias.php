@@ -11,7 +11,7 @@
                         Sistema Integrado de Gestión
                     </h1>
                     <p class="sub-headline">
-                        Ruta o Ubicacion Actual // Ejemplo:Inicio
+                        Administrar Categorías
                     </p>
                 </div>
             </div>
@@ -66,7 +66,7 @@
     $(document).ready(function() {
         $('#id_area').change(function() {
             let id_area = $('#id_area').val();
-            listAsync('listarCategorias', id_area);
+            listAsync('listarCategoriasFull', id_area);
         });           
     });
 

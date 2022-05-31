@@ -74,7 +74,7 @@
                         switch (fila.status) {
                             case "created":
                                 alert("Registro Creado");
-                                redirect('<?= BASE_URL ?>Dashboard/infoCategoria', fila.id);
+                                redirect('<?= BASE_URL ?>Dashboard/gestionCategorias', fila.id);
                                 break;
 
                             case "error":

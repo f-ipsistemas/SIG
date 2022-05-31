@@ -2,11 +2,6 @@
 session_start();
 date_default_timezone_set('America/Bogota');
 require_once '../config/parameters.php';
-/*
-require_once '../config/db.php';
-require_once '../helpers/Utils.php';
-require_once '../models/Cliente.php';
-*/
 
 if (isset($_REQUEST['action'])) {
 	$action = $_REQUEST['action'];
@@ -17,17 +12,21 @@ if (isset($_REQUEST['action'])) {
 		'uploadFile',
 		'crearDocumento',
 		'listarDocumentosXArea',
+		'listarDocumentosFullXArea',
 		'updateCategoria',
-		'deleteFile'
+		'deleteFile',
+		'listarCategoriasFull'
 	);
 	$existe = array_search(strval($action), $listaAcciones);
 	if ($existe) {
 		$action();
 	} else {
-		echo '<h2><span style="color: red">Error:</h2></span><h4>No se reconoce la acción</h4>';
+		$response[] = ['status' => "error", 'description' => "No se reconoce la accion"];			
+		print_r(json_encode($response));	
 	}
 } else {
-	echo '<h2><span style="color: red">Error:</h2></span><h4>No se recibió una acción</h4>';
+	$response[] = ['status' => "error", 'description' => "No se recibió una accion"];	
+	print_r(json_encode($response));
 }
 
 function listarCategorias()
@@ -35,6 +34,18 @@ function listarCategorias()
 	$idArea = isset($_POST['key']) ? $_POST['key'] : false;
 	if ($idArea) {
 		$consulta = BASE_SERVER . "ws/AreaCategoria/getAllxArea&id_area=" . $idArea;
+		$response = file_get_contents($consulta);
+	} else {
+		$response[] = ['status' => "error", 'description' => "A key is required"];
+	}
+	print_r($response);
+}
+
+function listarCategoriasFull()
+{
+	$idArea = isset($_POST['key']) ? $_POST['key'] : false;
+	if ($idArea) {
+		$consulta = BASE_SERVER . "ws/AreaCategoria/getAllFullxArea&id_area=" . $idArea;
 		$response = file_get_contents($consulta);
 	} else {
 		$response[] = ['status' => "error", 'description' => "A key is required"];
@@ -82,6 +93,19 @@ function listarDocumentosXArea()
 	$id_area = isset($_POST['key']) ? $_POST['key'] : false;
 	if ($id_area) {
 		$consulta = BASE_SERVER . "ws/Documento/getAllxArea&id_area=" . $id_area;
+		$response = file_get_contents($consulta);
+		print_r($response);
+	} else {
+		$response[] = ['status' => "error", 'description' => "A key is required"];
+		print_r($response);
+	}
+}
+
+function listarDocumentosFullXArea()
+{
+	$id_area = isset($_POST['key']) ? $_POST['key'] : false;
+	if ($id_area) {
+		$consulta = BASE_SERVER . "ws/Documento/getAllFullxArea&id_area=" . $id_area;
 		$response = file_get_contents($consulta);
 		print_r($response);
 	} else {
